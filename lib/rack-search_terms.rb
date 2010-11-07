@@ -10,7 +10,7 @@ module Rack
     
     def call env
       @env = env
-      @env.merge! 'search_terms' => search_terms if search_terms
+      @env.merge! 'search_terms' => search_terms
       @app.call @env
     end
     

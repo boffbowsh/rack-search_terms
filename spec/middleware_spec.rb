@@ -24,4 +24,14 @@ describe Rack::SearchTerms do
     it_should_work_for "Google Images", :from => "http://www.google.com/imgres?imgurl=http://www.rawnet.com/system/logos/18/thumb/logo.jpg%3F1286466114&imgrefurl=http://www.rawnet.com/news&usg=__Ag-l2Kt0yNDIUoOby8Q8bEKbWQ8=&h=66&w=95&sz=18&hl=en&start=0&sig2=YrkGnaNORciIKLuxBZm3_w&zoom=1&tbnid=OmO0aEU9ZGSuUM:&tbnh=61&tbnw=88&ei=YyPXTJGtLIOzhAef7sTFBQ&prev=/images%3Fq%3Drawnet%2Blogo%26hl%3Den%26safe%3Doff%26qscrl%3D1%26biw%3D1196%26bih%3D888%26tbs%3Disch:1&itbs=1&iact=hc&vpx=206&vpy=314&dur=1089&hovh=61&hovw=88&tx=107&ty=17&oei=YyPXTJGtLIOzhAef7sTFBQ&esq=1&page=1&ndsp=26&ved=1t:429,r:6,s:0", :as => 'rawnet logo'
     it_should_work_for "Bing", :from => 'http://www.bing.com/search?q=rawnet+logo&go=&form=QBLH&filt=all&qs=n&sk=', :as => 'rawnet logo'
   end
+  
+  it "should fail silently if not a search engine" do
+    expect_env 'HTTP_REFERER' => 'http://www.example.com/', 'search_terms' => nil
+    mock_request "http://www.example.com/"
+  end
+
+  it "should fail silently if a search engine with no terms" do
+    expect_env 'HTTP_REFERER' => 'http://www.google.com/', 'search_terms' => nil
+    mock_request "http://www.google.com/"
+  end
 end
