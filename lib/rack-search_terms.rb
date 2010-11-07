@@ -10,7 +10,6 @@ module Rack
     
     def call env
       @env = env
-      @env.merge! 'search_engine' => search_engine if search_engine
       @env.merge! 'search_terms' => search_terms if search_terms
       @app.call @env
     end
@@ -19,19 +18,14 @@ module Rack
       @env['HTTP_REFERER']
     end
     
-    def search_engine
-      @search_engine ||= case referer 
-      when /http:\/\/www.google.com\/\?q=/
-        'Google Web'
-      end
-    end
-    
     def search_terms
       case referer 
       when /^http:\/\/www\.google\..*?\/imgres/
         prev = terms_from_param 'prev'
         parse_query(prev.split('?')[1])['q']
       when /^http:\/\/www\.google\..*?\//
+        terms_from_param 'q'
+      when /^http:\/\/www.bing.com/
         terms_from_param 'q'
       end
     end
