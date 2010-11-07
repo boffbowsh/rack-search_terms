@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Paul Bowsher']
   s.email       = ['paul.bowsher@gmail.com']
   s.homepage    = "http://rubygems.org/gems/rack-search_terms"
-  s.summary     = "TODO: Write a gem summary"
-  s.description = "TODO: Write a gem description"
+  s.summary     = "Rack Middleware to extract search terms from the referring search engine"
+  s.description = "Rack::SearchTerms gives your app access to the search terms that drove the visitor to your site"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "rack-search_terms"
